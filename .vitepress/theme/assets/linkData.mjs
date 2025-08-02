@@ -7,7 +7,7 @@ const linkData = [
     typeDesc: "自己的东西",
     typeList: [
       {
-        name: "Sy's Digital Garden",
+        name: "Sy's Dev Garden",
         avatar: "https://api.ddnsy.fun/clogo.webp",
         desc: "With you, through all.",
         url: "https://ddnsy.fun",

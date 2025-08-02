@@ -1,52 +1,43 @@
 <template>
-  <!-- 背景图片 -->
   <Background />
-  <!-- 加载提示 -->
   <Loading />
-  <!-- 中控台 -->
   <Control />
-  <!-- 导航栏 -->
   <Nav />
-  <!-- 主内容 -->
   <main :class="['mian-layout', { loading: loadingStatus, 'is-post': isPostPage }]">
-    <!-- 404 -->
     <NotFound v-if="page.isNotFound" />
-    <!-- 首页 -->
     <Home v-if="frontmatter.layout === 'home'" showHeader />
-    <!-- 页面 -->
     <template v-else>
-      <!-- 文章页面 -->
       <Post v-if="isPostPage" />
-      <!-- 普通页面 -->
       <Page v-else-if="!page.isNotFound" />
     </template>
   </main>
-  <!-- 页脚 -->
   <FooterLink v-show="!loadingStatus" :showBar="isPostPage && !page.isNotFound" />
   <Footer v-show="!loadingStatus" />
-  <!-- 悬浮菜单 -->
   <Teleport to="body">
-    <!-- 左侧菜单 -->
     <div :class="['left-menu', { hidden: footerIsShow }]">
-      <!-- 全局设置 -->
       <Settings />
-      <!-- 全局播放器 -->
       <Player />
     </div>
   </Teleport>
-  <!-- 右键菜单 -->
   <RightMenu ref="rightMenuRef" />
-  <!-- 全局消息 -->
   <Message />
-</template>
+  
+  <InfoPopup v-if="frontmatter.layout === 'home'" />
+  </template>
 
 <script setup>
+// --- 新增代码：引入弹窗组件 ---
+import InfoPopup from "./components/InfoPopup.vue";
+// --- 新增代码结束 ---
+
 import { storeToRefs, createPinia } from "pinia";
 import { mainStore, initializeCursor } from "@/store";
 import { calculateScroll, specialDayGray } from "@/utils/helper";
 import cursorInit from "@/utils/cursor.js";
 
 import { createApp } from 'vue';
+// 注意：这里的 App 引用可能导致循环依赖，如果项目能正常运行则无需修改
+// 但通常在根组件内不需要再 createApp(App)
 import App from '@/App.vue';
 
 const app = createApp(App);

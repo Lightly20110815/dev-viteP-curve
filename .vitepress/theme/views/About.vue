@@ -1,29 +1,15 @@
 <template>
   <div class="about">
-    <h1 class="title">关于本站</h1>
+    <h1 class="title">关于我呀</h1>
     <div class="about-content" style="grid-template-columns: 3fr 2fr">
-      <!-- 介绍 -->
       <div class="about-item hello">
-        <span class="text1">你好，很高兴认识你👋</span>
-        <span class="text2 title2">我是 Sy Yann</span>
-        <span class="text3">描述？我也不知道写什么</span>
+        <span class="text1">你好呀，很高兴你能来这里！(｡･ω･｡)ﾉ♡</span>
+        <span class="text2 title2">咱是 Sy酱~</span>
+        <span class="text3">一个爱折腾代码和幻想的普通中学生~</span>
       </div>
-      <!-- 追求 -->
-      <!--
-      <div class="about-item pursuit">
-        <span class="tip">#</span>
-        <span class="title2">#</span>
-        <span class="title2">#</span>
-        <span class="title2">#</span>
-      </div>
-    </div>
-    <div class="about-content" style="grid-template-columns: 2fr 3fr">
-      -->
-      <!-- 技能 -->
-
       <div class="about-item skills">
-        <span class="tip">技能</span>
-        <span class="title2">我不会的玩意</span>
+        <span class="tip">我的技能树</span>
+        <span class="title2">还在努力学习中...</span>
         <div class="skills-list">
           <a
             v-for="(item, index) in skillsData"
@@ -34,98 +20,12 @@
             target="_blank"
           >
             <div class="skills-logo">
-              <!-- 已修改：根据 item.custom 动态切换图标类名 -->
               <i :class="item.custom ? `myicons myicon-${item.icon}` : `iconfont icon-${item.icon}`"></i>
             </div>
             <span class="skills-name">{{ item.name }}</span>
           </a>
         </div>
       </div>
-
-      <!-- 生涯 -->
-       <!--
-      <div class="about-item career">
-        <span class="tip">生涯</span>
-        <span class="title2">
-          <i>無限進步</i>
-        </span>
-        <div class="list">
-          <span class="list-item" style="--color: #357ef5">#</span>
-          <span class="list-item" style="--color: #eb372a">#</span>
-        </div>
-        <img
-          class="career-img"
-          src="https://pic.efefee.cn/uploads/2024/02/22/65d71db18bcf9.png"
-          alt="career"
-        />
-      </div>
-    </div>
-    <div class="about-content" style="grid-template-columns: 3fr 2fr">
-      -->
-      <!-- 性格 -->
-       <!--
-      <div class="about-item character" style="--color: #4298b4">
-        <span class="tip">#</span>
-        <span class="title2">#</span>
-        <span class="title2" style="color: var(--color)">#</span>
-        <span class="more">
-          在
-          <a href="#" target="_blank">16personalities</a>
-          了解更多关于
-          <a href="#" target="_blank">
-            #
-          </a>
-        </span>
-        <img
-          src="#"
-          alt="male"
-          class="male"
-        />
-      </div>
-    -->
-      <!-- 座右铭 -->
-      <!--
-      <div class="about-item">
-        <span class="tip">#</span>
-        <span class="title1" style="margin-top: 20px">#，</span>
-        <span class="title2">#。</span>
-      </div>
-    </div>
-    <div class="about-content" style="grid-template-columns: 1fr 1fr">
-      <div
-        class="about-item like image"
-        style="
-          --color: #0c0e20;
-          background-image: url(https://picsum.photos/800/400?random=1);
-        "
-      >
-        <div class="image-content">
-          <span class="tip">✧</span>
-          <span class="title2">✧</span>
-          <div class="image-desc">
-            <span class="left">✧</span>
-          </div>
-        </div>
-      </div>
-      <div
-        class="about-item like image"
-        style="
-          --color: #7b3c25;
-          background-image: url(https://picsum.photos/800/400?random=2);
-        "
-      >
-        <div class="image-content">
-          <span class="tip">✧</span>
-          <span class="title2">✧</span>
-          <div class="image-desc">
-            <span class="left">✧</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="about-content" style="grid-template-columns: 2fr 3fr">
-    -->
-      <!-- 数据 -->
 
       <div
         class="about-item static image"
@@ -135,8 +35,8 @@
         "
       >
         <div class="image-content">
-          <span class="tip">数据</span>
-          <span class="title2">访问统计</span>
+          <span class="tip">小站数据</span>
+          <span class="title2">感谢大家的光临~</span>
           <div class="static-data">
             <div v-for="(item, key, index) in statisticsData" :key="index" class="static-item">
               <span class="static-name">{{ key }}</span>
@@ -151,63 +51,60 @@
         </div>
       </div>
 
-      <!-- 信息 -->
       <div class="about-item child">
         <div
           class="about-item map image"
           style="background-image: url(https://api.ddnsy.fun/Location.png)"
         >
-          <span class="position">我现在住在 <strong>中国，安徽省，合肥市</strong></span>
+          <span class="position">我目前出没于 <strong>中国，安徽省，合肥市</strong></span>
         </div>
       </div>
     </div>
-    <!-- 心路历程 -->
     <div class="about-content" style="display: flex">
       <div class="about-item">
-        <span class="tip">关于这个Digital Garden</span>
-        <span class="title2">一座收容内心喧嚣的孤岛</span>
+        <span class="tip">关于这座花园</span>
+        <span class="title2">一个收藏奇思妙想的角落</span>
         <p class="text">
-          把所有破碎的呓语，说给潮汐和自己听。
+          把所有奇奇怪怪的想法和碎碎念，都悄悄藏在这里~
         </p>
       </div>
     </div>
-    <!-- 座右铭 -->
     <div class="about-content" style="display: flex">
       <div class="about-item" style="width: 100%;">
-        <span class="tip">座右铭</span>
-        <span class="title1" style="margin-top: 20px">与你进退，</span>
-        <span class="title2">也共鸣。</span>
+        <span class="tip">我的信条</span>
+        <span class="title1" style="margin-top: 20px">想和你一起，</span>
+        <span class="title2">闪闪发光。</span>
       </div>
     </div>
     <div class="about-content" style="grid-template-columns: 1fr 1fr">
         <div class="about-item" style="justify-content: center; align-items: center; text-align: center;">
-            <span class="tip">喜欢的音乐风格</span>
+            <span class="tip">循环歌单</span>
             <span class="title2" style="margin-top: 20px; margin-right: 0;">VOCALOID</span>
         </div>
         <div class="about-item" style="justify-content: center; align-items: center; text-align: center;">
-            <span class="tip">喜欢的游戏</span>
+            <span class="tip">沉迷的游戏</span>
             <span class="title2" style="margin-top: 20px; margin-right: 0;">COLORFUL STAGE</span>
         </div>
     </div>
     <div class="about-content" style="grid-template-columns: 1fr 1fr 1fr">
         <div class="about-item" style="justify-content: center; align-items: center; text-align: center;">
-            <span class="tip">诞</span>
+            <span class="tip">破壳</span>
             <span class="title2" style="margin-top: 20px; margin-right: 0;">2011年</span>
         </div>
         <div class="about-item" style="justify-content: center; align-items: center; text-align: center;">
-            <span class="tip">生</span>
+            <span class="tip">之</span>
             <span class="title2" style="margin-top: 20px; margin-right: 0;">8月</span>
         </div>
         <div class="about-item" style="justify-content: center; align-items: center; text-align: center;">
-            <span class="tip">于</span>
+            <span class="tip">日</span>
             <span class="title2" style="margin-top: 20px; margin-right: 0;">15日</span>
         </div>
     </div>
     <div class="about-content" style="display: flex">
       <div class="about-item" style="width: 100%;">
-        <span class="tip">特此感谢</span>
-        <p class="text" style="margin-top: 1rem;">池鱼鱼</p>
-        <p class="text">Gemini 2.5 Pro</p>
+        <span class="tip">捕获一只野生感谢名单！</span>
+        <p class="text" style="margin-top: 1rem;">超厉害的 @池鱼鱼 大佬</p>
+        <p class="text">提供灵感的 @Gemini 酱</p>
       </div>
     </div>
   </div>
