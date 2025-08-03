@@ -1,11 +1,16 @@
 <template>
   <div v-if="type === 'text'" :class="['banner', bannerType]" id="main-banner">
-    <h1 class="title">你好，欢迎来到{{ theme.siteMeta.title }}</h1>
+    <h1 class="title">你好，欢迎来到{{ theme.siteMeta.title }} 👋</h1>
     <div class="subtitle">
       <Transition name="fade" mode="out-in">
-        <span :key="displayText" class="text" @click="toggleHitokoto">
-          {{ displayText }}
-        </span>
+        <div class="hitokoto-wrapper" @click="fetchNewHitokoto" :key="displayText">
+          <span class="text">
+            {{ displayText }}
+          </span>
+          <span v-if="isHitokotoDisplayed && hitokotoData?.from" class="source">
+            —— {{ hitokotoData.from }}
+          </span>
+        </div>
       </Transition>
     </div>
     <Transition name="fade" mode="out-in">
@@ -41,108 +46,62 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount, watch, computed } from 'vue';
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
 import { mainStore } from "@/store";
-import { getHitokoto } from "@/api"; // 确保此路径正确，指向您获取一言的函数
+import { getHitokoto } from "@/api";
 
 const store = mainStore();
 const { theme } = useData();
 const props = defineProps({
-  // 类型
-  type: {
-    type: String,
-    default: "text",
-  },
-  // 高度
-  height: {
-    type: String,
-    default: "half",
-  },
-  // 标题
-  title: {
-    type: String,
-    default: "这里是标题",
-  },
-  // 简介
-  desc: {
-    type: String,
-    default: "这里是简介",
-  },
-  // 注释
-  footer: {
-    type: String,
-    default: "",
-  },
-  // 背景
-  image: {
-    type: String,
-    default: "",
-  },
+  type: { type: String, default: "text" },
+  height: { type: String, default: "half" },
+  title: { type: String, default: "这里是标题" },
+  desc: { type: String, default: "这里是简介" },
+  footer: { type: String, default: "" },
+  image: { type: String, default: "" },
 });
+
+// --- 逻辑简化开始 ---
 
 const hitokotoData = ref(null);
-const hitokotoInitialTimeout = ref(null); // 用于初次加载的定时器
-const bannerType = ref(null);
-// —— 新增：自动切换是否激活标志 —— 
-const autoSwitchActive = ref(false)
+const hitokotoInitialTimeout = ref(null);
+const bannerType = ref(store.bannerType); // 直接从 store 初始化
 
-// 初始时显示默认标语
-const isHitokotoDisplayed = ref(false);
+// 默认显示站点描述
 const defaultSlogan = theme.value.siteMeta.description;
+// 判断当前是否在显示一言
+const isHitokotoDisplayed = ref(false);
 
-// 用于跟踪是否是“第一次点击”一言以切换到默认标语
-const isFirstClickAfterInitialHitokoto = ref(true);
-
+// computed 计算最终显示的文本
 const displayText = computed(() => {
-  if (isHitokotoDisplayed.value && hitokotoData.value?.hitokoto) {
-    return hitokotoData.value.hitokoto;
-  } else {
-    return defaultSlogan;
-  }
+  return isHitokotoDisplayed.value && hitokotoData.value?.hitokoto
+    ? hitokotoData.value.hitokoto
+    : defaultSlogan;
 });
 
-// 获取一言数据
+// 获取一言的函数，保持不变
 const getHitokotoData = async () => {
   try {
     const result = await getHitokoto();
-    const { hitokoto, from, from_who } = result;
-    hitokotoData.value = { hitokoto, from, from_who };
-    isHitokotoDisplayed.value = true; // 获取成功后设置为显示一言
+    hitokotoData.value = result;
+    isHitokotoDisplayed.value = true; // 获取成功，切换到显示一言的状态
   } catch (error) {
-    // $message.error("一言获取失败"); // 假设 $message 可用
     console.error("一言获取失败：", error);
-    // 如果获取失败，仍然保持默认标语状态
-    isHitokotoDisplayed.value = false; // 确保显示的是默认标语
+    isHitokotoDisplayed.value = false; // 获取失败，确保显示默认标语
   }
 };
-// —— 将自动切换逻辑拆分成单独函数，不清理定时器 —— 
-async function autoToggleHitokoto() {
-  if (isHitokotoDisplayed.value && !isFirstClickAfterInitialHitokoto.value) {
-    // 隐藏一言，显示默认
-    isHitokotoDisplayed.value = false
-  } else {
-    // 拉取新一言
-    await getHitokotoData()
+
+// 点击时，直接获取新的一言
+const fetchNewHitokoto = async () => {
+  // 清除可能还在等待执行的初始定时器
+  if (hitokotoInitialTimeout.value) {
+    clearTimeout(hitokotoInitialTimeout.value);
   }
-}
-// 点击切换
-// 点击时：停止自动切换，并切回默认文案
-const toggleHitokoto = async () => {
-  if (autoSwitchActive.value) {
-    // 停掉自动循环
-    clearInterval(autoSwitchInterval.value)
-    autoSwitchActive.value = false
-    // 切回默认文案
-    isHitokotoDisplayed.value = false
-    return
-  }
-  // 只做手动切换（不再重启自动切换）
-  if (isHitokotoDisplayed.value && !isFirstClickAfterInitialHitokoto.value) {
-    isHitokotoDisplayed.value = false
-  } else {
-    await getHitokotoData()
-  }
-}
+  // 立刻获取新的一言
+  await getHitokotoData();
+};
+
+// --- 逻辑简化结束 ---
 
 // 滚动至首页
 const scrollToHome = () => {
@@ -161,36 +120,60 @@ watch(
   },
 );
 
-
-// —— 新增 ——
-// 自动切换的 interval 引用
-const autoSwitchInterval = ref(null)
-
 onMounted(() => {
   if (props.type === "text") {
-    // 4 秒后首次拉取并显示一言
-    hitokotoInitialTimeout.value = setTimeout(async () => {
-      await getHitokotoData()
-      // 拉取完成后启动自动切换
-      autoSwitchInterval.value = setInterval(() => {
-        autoToggleHitokoto()
-      }, 7000)
-      autoSwitchActive.value = true
-    }, 4000)
+    // 页面加载 4 秒后，自动获取并显示第一条一言
+    hitokotoInitialTimeout.value = setTimeout(getHitokotoData, 4000);
   }
-})
+});
 
 onBeforeUnmount(() => {
-  // 清除初始加载的定时器，防止组件卸载后仍然执行
+  // 组件卸载时，清除还未执行的定时器
   if (hitokotoInitialTimeout.value) {
     clearTimeout(hitokotoInitialTimeout.value);
-    clearInterval(autoSwitchInterval.value)
   }
 });
 </script>
 
 <style lang="scss" scoped>
-/* 样式保持不变 */
+/* 为了让新增的“来源”显示更好看，微调一下样式 */
+.subtitle {
+  width: 80%;
+  font-size: 1.25rem;
+  opacity: 0.8;
+  animation: fade-up-opacity 0.6s 0.1s backwards;
+  /* 将最小高度移到 wrapper 上，防止切换时跳动 */
+  min-height: 60px; /* 约两行的高度 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hitokoto-wrapper {
+  cursor: pointer; /* 鼠标放上去时显示小手，提示可以点击 */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+}
+
+.source {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  opacity: 0.7;
+  align-self: flex-end; /* 让来源靠右对齐 */
+}
+
+/* 其他样式保持不变 */
 .banner {
   height: 300px;
   display: flex;
@@ -214,22 +197,6 @@ onBeforeUnmount(() => {
     font-weight: bold;
     font-size: 2.75rem;
   }
-  .subtitle {
-    width: 80%;
-    font-size: 1.25rem;
-    opacity: 0.8;
-    animation: fade-up-opacity 0.6s 0.1s backwards;
-  .text {
-    text-align: center;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; // WebKit 引擎兼容性
-    -webkit-box-orient: vertical; // WebKit 引擎兼容性
-
-    line-clamp: 2; // 标准的 line-clamp 属性，提高兼容性
-  }
-}
   .icon-up {
     font-size: 20px;
     position: absolute;
@@ -246,12 +213,12 @@ onBeforeUnmount(() => {
       font-size: 2.25rem;
     }
     .subtitle {
-      height: 50px;
-      font-size: 1.125rem;
+      justify-content: flex-start;
       margin-left: 8px;
-      .text {
-        text-align: left;
-      }
+    }
+    .hitokoto-wrapper {
+      text-align: left;
+      align-items: flex-start;
     }
   }
 }

@@ -101,12 +101,20 @@
         </div>
     </div>
     <div class="about-content" style="display: flex">
-      <div class="about-item" style="width: 100%;">
-        <span class="tip">捕获一只野生感谢名单！</span>
-        <p class="text" style="margin-top: 1rem;">超厉害的 @池鱼鱼 大佬</p>
-        <p class="text">提供灵感的 @Gemini 酱</p>
-      </div>
+  <div class="about-item" style="width: 100%;">
+    <span class="tip">捕获一只野生感谢名单！</span>
+    <p class="text" style="margin-top: 1rem;">
+      <a href="https://chiyu.it" target="_blank" rel="noopener noreferrer">
+        超厉害的 @池鱼鱼 大佬
+      </a>
+    </p>
+    <p class="text">
+      <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer">
+        提供灵感的 @Gemini 酱
+      </a>
+    </p>
     </div>
+</div>
   </div>
 </template>
 

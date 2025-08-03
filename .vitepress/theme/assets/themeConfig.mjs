@@ -191,7 +191,7 @@ export const themeConfig = {
       {
         text: "项目",
         items: [
-          { text: "本站源码", link: "https://github.com/Lightly20110815/vitepress-theme-curve", newTab: true },
+          { text: "本站源码", link: "https://github.com/Lightly20110815/dev-viteP-curve", newTab: true },
         ],
       },
       {
