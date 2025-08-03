@@ -10,7 +10,7 @@ const linkData = [
         name: "Sy's Dev Garden",
         avatar: "https://api.ddnsy.fun/clogo.webp",
         desc: "With you, through all.",
-        url: "https://ddnsy.fun",
+        url: "https://ddnsy.xyz",
       },
     ],
   },

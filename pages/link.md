@@ -21,15 +21,15 @@ import Link from "@/views/Link.vue";
 
 ### 我的友链信息
 
-- 名称：`Sy's Digital Garden`
-- 描述：`With you, through all.`
-- 地址：`https://ddnsy.fun/`
+- 名称：`Sy の 漂流瓶`
+- 描述：`与你一同，穿梭于代码与星辰✨`
+- 地址：`https://ddnsy.xyz/`
 - 头像：`https://api.ddnsy.fun/clogo.png`
 - 站点图片：`None?`
 
 ```yml
-name: Sy's Digital Garden
-desc: With you, through all.
-url: [https://ddnsy.fun/](https://ddnsy.fun/)
-avatar: [https://api.ddnsy.fun/clogo.png](https://api.ddnsy.fun/clogo.png)
+name: Sy の 漂流瓶
+desc: 与你一同，穿梭于代码与星辰✨
+url: [https://ddnsy.xyz/](https://ddnsy.xyz/)
+avatar: [https://api.ddnsy.fun/clogo.webp](https://api.ddnsy.fun/clogo.webp)
 screenshot: None?
