@@ -1,6 +1,9 @@
+// themeConfig.mjs
+
 export const themeConfig = {
   siteMeta: {
-    title: "Sy の 小窝",
+    // --- 修改处 ---
+    title: "Sy の 漂流瓶",
     description: "与你一同，穿梭于代码与星辰✨",
     logo: "https://api.ddnsy.fun/clogo.webp",
     site: "https://ddnsy.xyz",
@@ -113,7 +116,7 @@ export const themeConfig = {
     {
       text: "关于我",
       items: [
-        { text: "关于小窝", link: "/pages/about", icon: "contacts" },
+        { text: "关于本站", link: "/pages/about", icon: "contacts" },
       ],
     },
   ],
@@ -197,7 +200,7 @@ export const themeConfig = {
       {
         text: "页面",
         items: [
-          { text: "关于小窝", link: "/pages/about" },
+          { text: "关于本站", link: "/pages/about" },
           { text: "隐私政策", link: "/pages/privacy" },
           { text: "版权协议", link: "/pages/cc" },
           { text: "TODO", link: "/pages/todo" },
