@@ -3,17 +3,19 @@
     <Hello v-if="theme.aside.hello.enable" class="weidgets" />
     <div class="sticky">
       <Toc v-if="theme.aside.toc.enable && showToc" class="weidgets" />
-  <Weather
-    v-if="theme.aside.weather.enable && showWeather"
-    class="weidgets"
-    @fetch-error="onWeatherError"
-  />
+      <Weather
+        v-if="theme.aside.weather.enable && showWeather"
+        class="weidgets"
+        @fetch-error="onWeatherError"
+      />
       <Countdown class="weidgets" />
-            <!-- HelloGithub 热榜 -->
-    <HelloGithubHot
-      v-if="theme.aside.HelloGithub.enable && showHot"
-      @fetch-error="onHotError"
-    />
+      
+      <Birthday class="weidgets" />
+
+      <HelloGithubHot
+        v-if="theme.aside.HelloGithub.enable && showHot"
+        @fetch-error="onHotError"
+      />
       <Tags v-if="theme.aside.tags.enable" class="weidgets" />
       <SiteData v-if="theme.aside.siteData.enable" class="weidgets" />
     </div>
@@ -21,6 +23,9 @@
 </template>
 
 <script setup>
+// 脚本部分完全保留你原来的样子
+import Birthday from './Widgets/Birthday.vue'
+
 const { theme } = useData();
 const props = defineProps({
   // 显示目录
@@ -44,6 +49,7 @@ function onHotError(err) {
 </script>
 
 <style lang="scss" scoped>
+/* 样式部分完全保留你原来的样子 */
 .main-aside {
   padding-left: 1rem;
   display: flex;

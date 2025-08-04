@@ -243,10 +243,15 @@ export const themeConfig = {
     countDown: {
       enable: true,
       data: {
-        name: "破壳日🎉",
+        name: "生日🎉",
         date: "2025-08-15",
       },
     },
+    birthDate: {
+        enable: true,
+        date: "2011-08-15",
+        name: "Sy Yann", // 这里可以修改为你的名字
+    },
     HelloGithub: {
       enable: true,
     },
