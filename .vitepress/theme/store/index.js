@@ -52,7 +52,7 @@ export const mainStore = defineStore("main", {
       lastScrollY: 0,
       // 站点背景
       backgroundType: "image",
-      backgroundUrl: "https://api.1314.cool/bingimg",
+      backgroundUrl: "https://bing.img.run/rand.php",
     };
   },
   getters: {},
