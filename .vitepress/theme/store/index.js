@@ -51,7 +51,7 @@ export const mainStore = defineStore("main", {
       // 上次滚动位置
       lastScrollY: 0,
       // 站点背景
-      backgroundType: "patterns",
+      backgroundType: "image",
       backgroundUrl: "https://api.1314.cool/bingimg",
     };
   },
