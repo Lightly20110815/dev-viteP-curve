@@ -52,7 +52,7 @@ export const mainStore = defineStore("main", {
       lastScrollY: 0,
       // 站点背景
       backgroundType: "patterns",
-      backgroundUrl: "https://api.miaomc.cn/image/get",
+      backgroundUrl: "https://api.1314.cool/bingimg",
     };
   },
   getters: {},
