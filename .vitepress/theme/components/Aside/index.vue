@@ -11,7 +11,9 @@
       <Countdown class="weidgets" />
       
       <Birthday class="weidgets" />
-
+      
+      <Timing v-if="theme.aside.timing.enable" class="weidgets" />
+      
       <HelloGithubHot
         v-if="theme.aside.HelloGithub.enable && showHot"
         @fetch-error="onHotError"

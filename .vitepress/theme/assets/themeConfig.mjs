@@ -252,6 +252,12 @@ export const themeConfig = {
         date: "2011-08-15",
         name: "Sy Yann", // 这里可以修改为你的名字
     },
+    timing: {
+      enable: false, // 是否启用
+      name: "池鱼", //要显示的名字
+      event: "活着", //事件名称
+      date: "2010-09-07", //出生日期
+    },
     HelloGithub: {
       enable: true,
     },
